@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>session</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+</head>
+<script>
+    $(function () {
+        var num=0;
+        if(sessionStorage.num){
+            num=sessionStorage.num;
+        }
+
+        $("#sessionStorage").on("click",function () {
+            num++;
+            sessionStorage.num=num;
+            console.log(sessionStorage.num);
+            $("#text").html(num);
+        })
+
+        if(!window.localStorage){
+            alert("浏览器支持localstorage");
+        }else{
+            var storage=window.localStorage;
+            //写入a字段
+            storage["a"]=1;
+            //写入b字段
+            storage.b=1;
+            //写入c字段
+            storage.setItem("c",3);////
+            console.log(typeof storage["a"]);
+            console.log(typeof storage["b"]);
+            console.log(typeof storage["c"]);
+            //第一种方法读取
+//            console.log(a);
+            //第二种方法读取
+            var b=storage["b"];
+            console.log(b);
+            //第三种方法读取
+            var c=storage.getItem("c");////
+            console.log(c);
+            /*删除*/
+//            storage.removeItem("a");
+//            console.log(storage.a);
+            /*获取它的键*/
+            for(var i=0;i<storage.length;i++){
+                var key=storage.key(i);
+                console.log(key);
+            }
+            ////将json存入////
+            var data={
+                name:"xie",
+                sex:"ad",
+                hobby:"youyong"
+            }
+            var d=JSON.stringify(data);///转换成字符串
+            storage.setItem("data",d);
+            console.log(storage.data);
+        }
+
+    })
+</script>
+<body>
+    <h1>html5提供了两种在客户端存储数据的新方法</h1>
+    <h1>sessionStorage存储的在浏览器关闭会消失。localStorge存储的不会,它是没有时间限制的</h1>
+    <span id="text">0</span>
+    <button id="sessionStorage">zz</button></br>
+    <span id="text2">0</span>
+    <button id="localStorge">zz</button>
+</body>
+</html>
